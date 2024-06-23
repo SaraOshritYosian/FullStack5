@@ -1,6 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 function Info(){
+    const { id } = useParams();
     const user = JSON.parse(localStorage.getItem("currentUser"));
     return (
       <div>

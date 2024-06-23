@@ -40,7 +40,7 @@ function App() {
               }
             />
             <Route
-              path="info"
+              path="users/:id/info"
               element={
                 <ProtectedRoute>
                   <Info />
@@ -48,7 +48,7 @@ function App() {
               }
             />
             <Route
-              path="todos"
+              path="users/:id/todos"
               element={
                 <ProtectedRoute>
                   <Todos />
@@ -56,7 +56,7 @@ function App() {
               }
             />
             <Route
-              path="posts"
+              path="users/:id/posts"
               element={
                 <ProtectedRoute>
                   <Posts />
@@ -64,7 +64,7 @@ function App() {
               }
             />
             <Route
-              path="albums"
+              path="users/:id/albums"
               element={
                 <ProtectedRoute>
                   <Albums />
