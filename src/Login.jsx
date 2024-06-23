@@ -44,7 +44,7 @@ function Login() {
       }
 
       localStorage.setItem("currentUser", JSON.stringify(user));
-      alert(localStorage.getItem("currentUser"));
+      navigate('/home');
     } catch (error) {
       console.error(error);
       setErrorMessage("Invalid username or password");

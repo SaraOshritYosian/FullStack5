@@ -1,12 +1,45 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, NavLink, useNavigate} from "react-router-dom";
 
 function Layout(){
+    const navigate = useNavigate();
+    function Logout(){
+   
+        navigate("/login")
+        localStorage.removeItem('currentUser');
+    
+      }
     return(
-        <div>
-            <h1>Layout</h1>
-            <Outlet />
-        </div>
+        <>
+        <button onClick={Logout}>Logout</button>
+        <nav className='navbar'>
+          <NavLink
+            to="/info"
+            className={({ isActive }) => (isActive ? 'link active' : 'link')}
+          >
+            Info 
+          </NavLink>
+          <NavLink
+            to="/todos"
+            className={({ isActive }) => (isActive ? 'link active' : 'link')}
+          >
+            Todos 
+          </NavLink>
+          <NavLink
+            to="/posts"
+            className={({ isActive }) => (isActive ? 'link active' : 'link')}
+          >
+            Posts
+          </NavLink>
+          <NavLink
+            to="/albums"
+            className={({ isActive }) => (isActive ? 'link active' : 'link')}
+          >
+            Albums 
+          </NavLink>
+        </nav>
+        <Outlet />
+      </>
     )
 }
 
