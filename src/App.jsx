@@ -11,6 +11,7 @@ import Posts from './pages/Posts';
 import Albums from './pages/Albums';
 import Error from './pages/Error';
 import ProtectedRoute from './pages/ProtectedRoute';
+import Photos from './pages/Photos';
 
 
 function App() {
@@ -69,8 +70,14 @@ function App() {
                 <ProtectedRoute>
                   <Albums />
                 </ProtectedRoute>
-              }
-            />
+              }/>
+                <Route
+                path="users/:id/albums/:albumId/photos"
+                element={
+                  <ProtectedRoute>
+                    <Photos />
+                  </ProtectedRoute>
+                }/>
           </Route>
           <Route path="*" element={<Error/>} />
         </Routes>
