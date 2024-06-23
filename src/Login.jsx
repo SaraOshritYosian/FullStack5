@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
 import { useErrorMessage } from './costumizedHooks/UseError';
+import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+function Login() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useErrorMessage('');
@@ -49,6 +51,10 @@ export default function Login() {
     }
   };
 
+  const handleRegister = () => {
+    navigate('/register' );
+  };
+
 
   return (
     <div>
@@ -76,10 +82,12 @@ export default function Login() {
         <button type="submit" onClick={handleLogin}>
           Login
         </button>
-        <button type="button" >
+        <button type="button" onClick={handleRegister}>
           Register
         </button>
       </form>
     </div>
   );
 }
+
+export default Login;
