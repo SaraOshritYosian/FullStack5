@@ -1,0 +1,10 @@
+import React, {useState, useEffect} from "react";
+export function useErrorMessage(){
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(()=> {
+    return ()=>{setTimeout(()=>setErrorMessage(''),2000)};
+  },[errorMessage]);
+
+  return [errorMessage, setErrorMessage]
+}
