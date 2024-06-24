@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
+import CompleteRegistration from './pages/CompleteRegistration';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Info from './pages/Info';
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="complete-registration" element={<CompleteRegistration />} />
           <Route
             path="/"
             element={
