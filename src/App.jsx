@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="complete-registration" element={<CompleteRegistration />} />
+          <Route path="register/:username/:password" element={<CompleteRegistration />} />
           <Route
             path="/"
             element={

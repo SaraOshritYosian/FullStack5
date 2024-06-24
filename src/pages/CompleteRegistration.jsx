@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function CompleteRegistration() {
+    const {username, password} = useParams();
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
@@ -11,6 +12,8 @@ function CompleteRegistration() {
         e.preventDefault();
 
         const userDetails = {
+            username,
+            website: password,
             fullName,
             email,
             address
@@ -18,7 +21,7 @@ function CompleteRegistration() {
 
         try {
             const response = await fetch('http://localhost:3000/users', {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -26,6 +29,8 @@ function CompleteRegistration() {
             });
 
             if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem("currentUser", data);
                 navigate('/home');
             } else {
                 alert('Registration completion failed');

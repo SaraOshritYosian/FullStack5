@@ -36,21 +36,9 @@ function Register() {
 
             if (userExists) {
                 setError('Username already exists');
-            } else {
-                const newUser = { username, password };
-                const postResponse = await fetch('http://localhost:3000/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(newUser)
-                });
-
-                if (postResponse.ok) {
-                    navigate('/complete-registration');
-                } else {
-                    setError('Registration failed');
-                }
+            } 
+            else {
+                    navigate(`/register/${username}/${password}`);
             }
         } catch (err) {
             setError('An error occurred');
