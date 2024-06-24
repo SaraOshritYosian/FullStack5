@@ -6,6 +6,7 @@ const Photos = () => {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newPhotoTitle, setNewPhotoTitle] = useState('');
+  const [newPhotoUrl, setNewPhotoUrl] = useState('');
   const [editPhotoId, setEditPhotoId] = useState(null);
   const [editPhotoTitle, setEditPhotoTitle] = useState('');
 
@@ -16,7 +17,7 @@ const Photos = () => {
   const fetchPhotos = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`);
+      const response = await fetch(`http://localhost:3000/photos?albumId=${albumId}`);
       const data = await response.json();
       setPhotos(data);
     } catch (error) {
@@ -27,14 +28,16 @@ const Photos = () => {
   };
 
   const addPhoto = async () => {
-    const newPhoto = {
-      albumId: albumId,
-      title: newPhotoTitle,
-      url: 'https://via.placeholder.com/600/92c952',
-      thumbnailUrl: 'https://via.placeholder.com/150/92c952'
-    };
+    if (!newPhotoUrl || !newPhotoTitle) return;
+    
+      const newPhoto = {
+        albumId: albumId,
+        title: newPhotoTitle,
+        url: newPhotoUrl,
+        thumbnailUrl: newPhotoUrl,
+      };
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/photos', {
+      const response = await fetch('http://localhost:3000/photos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,6 +47,7 @@ const Photos = () => {
       const data = await response.json();
       setPhotos([...photos, data]);
       setNewPhotoTitle('');
+      setNewPhotoUrl('');
     } catch (error) {
       console.error('Error adding photo:', error);
     }
@@ -51,7 +55,7 @@ const Photos = () => {
 
   const deletePhoto = async (id) => {
     try {
-      await fetch(`https://jsonplaceholder.typicode.com/photos/${id}`, {
+      await fetch(`http://localhost:3000/photos/${id}`, {
         method: 'DELETE',
       });
       setPhotos(photos.filter(photo => photo.id !== id));
@@ -62,7 +66,7 @@ const Photos = () => {
 
   const updatePhoto = async () => {
     try {
-      const response = await fetch(`https://jsonplaceholder.typicode.com/photos/${editPhotoId}`, {
+      const response = await fetch(`https://localhost:3000/photos/${editPhotoId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -77,6 +81,7 @@ const Photos = () => {
       console.error('Error updating photo:', error);
     }
   };
+
 
   return (
     <div>
@@ -120,6 +125,12 @@ const Photos = () => {
           placeholder="Enter photo title"
           value={newPhotoTitle}
           onChange={(e) => setNewPhotoTitle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Enter photo url"
+          value={newPhotoUrl}
+          onChange={(e) => setNewPhotoUrl(e.target.value)}
         />
         <button onClick={addPhoto}>Add Photo</button>
       </div>
