@@ -9,7 +9,7 @@ const Photos = () => {
   const [newPhotoUrl, setNewPhotoUrl] = useState('');
   const [editPhotoId, setEditPhotoId] = useState(null);
   const [editPhotoTitle, setEditPhotoTitle] = useState('');
-
+  const [limit, setLimit] = useState(5);
   useEffect(() => {
     fetchPhotos();
   }, [albumId]);
@@ -17,12 +17,14 @@ const Photos = () => {
   const fetchPhotos = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/photos?albumId=${albumId}`);
+      const response = await fetch(`http://localhost:3000/photos?albumId=${albumId}&_limit=${limit}`);
       const data = await response.json();
       setPhotos(data);
     } catch (error) {
       console.error('Error fetching photos:', error);
     } finally {
+      setLimit(limit + 5);
+      console.log(limit);
       setLoading(false);
     }
   };
@@ -86,9 +88,6 @@ const Photos = () => {
   return (
     <div>
       <h3>Photos</h3>
-      <button disabled={loading} onClick={fetchPhotos}>
-        {loading ? 'Loading...' : 'Refresh Photos'}
-      </button>
       <ul>
         {photos.map(photo => (
           <li key={photo.id}>
@@ -119,6 +118,9 @@ const Photos = () => {
           </li>
         ))}
       </ul>
+      <button disabled={loading} onClick={fetchPhotos}>
+        {loading ? 'Loading...' : 'More Photos'}
+      </button>
       <div>
         <input
           type="text"
