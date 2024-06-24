@@ -2,10 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function CompleteRegistration() {
-    const {username, password} = useParams();
-    const [fullName, setFullName] = useState('');
+    const { username, password } = useParams();
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [address, setAddress] = useState('');
+    const [street, setStreet] = useState('');
+    const [suite, setSuite] = useState('');
+    const [city, setCity] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const [lat, setLat] = useState('');
+    const [lng, setLng] = useState('');
+    const [phone, setPhone] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [catchPhrase, setCatchPhrase] = useState('');
+    const [bs, setBs] = useState('');
     const navigate = useNavigate();
 
     const handleCompleteRegistration = async (e) => {
@@ -13,10 +22,25 @@ function CompleteRegistration() {
 
         const userDetails = {
             username,
-            website: password,
-            fullName,
+            name,
             email,
-            address
+            address: {
+                street,
+                suite,
+                city,
+                zipcode,
+                geo: {
+                    lat,
+                    lng
+                }
+            },
+            phone,
+            website: password,
+            company: {
+                name: companyName,
+                catchPhrase,
+                bs
+            }
         };
 
         try {
@@ -30,7 +54,7 @@ function CompleteRegistration() {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("currentUser", data);
+                localStorage.setItem("currentUser", JSON.stringify(data));
                 navigate('/home');
             } else {
                 alert('Registration completion failed');
@@ -48,8 +72,8 @@ function CompleteRegistration() {
                     <label>Full Name: </label>
                     <input
                         type="text"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         required
                     />
                 </div>
@@ -63,12 +87,95 @@ function CompleteRegistration() {
                     />
                 </div>
                 <div>
-                    <label>Address: </label>
+                    <label>Street: </label>
                     <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={street}
+                        onChange={(e) => setStreet(e.target.value)}
                         required
+                    />
+                </div>
+                <div>
+                    <label>Suite: </label>
+                    <input
+                        type="text"
+                        value={suite}
+                        onChange={(e) => setSuite(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>City: </label>
+                    <input
+                        type="text"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Zipcode: </label>
+                    <input
+                        type="text"
+                        value={zipcode}
+                        onChange={(e) => setZipcode(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Latitude: </label>
+                    <input
+                        type="text"
+                        value={lat}
+                        onChange={(e) => setLat(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Longitude: </label>
+                    <input
+                        type="text"
+                        value={lng}
+                        onChange={(e) => setLng(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Phone: </label>
+                    <input
+                        type="text"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Password: </label>
+                    <input
+                        type="password"
+                        value={password}
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label>Company Name: </label>
+                    <input
+                        type="text"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Catch Phrase: </label>
+                    <input
+                        type="text"
+                        value={catchPhrase}
+                        onChange={(e) => setCatchPhrase(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>BS: </label>
+                    <input
+                        type="text"
+                        value={bs}
+                        onChange={(e) => setBs(e.target.value)}
                     />
                 </div>
                 <button type="submit">Complete Registration</button>
