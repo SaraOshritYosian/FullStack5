@@ -20,7 +20,7 @@ const Posts = () => {
     const newPost = {
       title,
       body,
-      userId
+      userId: parseInt(userId, 10)
     };
     try {
       const response = await fetch('http://localhost:3000/posts', {
@@ -51,7 +51,7 @@ const Posts = () => {
   const updatePost = async (id, newTitle, newBody) => {
     try {
       const response = await fetch(`http://localhost:3000/posts/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -81,7 +81,7 @@ const Posts = () => {
       name: user.name,
       email: user.email,
       body,
-      userId, 
+      userId: parseInt(userId, 10), 
     };
     try {
       const response = await fetch('http://localhost:3000/comments', {
@@ -112,7 +112,7 @@ const Posts = () => {
   const updateComment = async (id, newBody) => {
     try {
       const response = await fetch(`http://localhost:3000/comments/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -145,7 +145,7 @@ const Posts = () => {
       <ul>
         {filteredPosts.map(post => (
           <li key={post.id}>
-            {post.id}. {post.title}
+            {post.id}. <span style={{ fontWeight: selectedPost&& selectedPost.id===post.id ? 'bold' : 'normal' }}>{post.title}</span>
             <button onClick={() => {
               setSelectedPost(post);
               fetchComments(post.id);
@@ -158,7 +158,6 @@ const Posts = () => {
             }}>Edit</button>
             {selectedPost&& selectedPost.id===post.id && (
             <div>
-              <h3>{selectedPost.title}</h3>
               <p>{selectedPost.body}</p>
               <h4>Comments</h4>
               <ul>

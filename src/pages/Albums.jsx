@@ -9,7 +9,7 @@ const Albums = () => {
 
   useEffect(() => {
     // Fetch albums from the JSONPlaceholder API when the component mounts
-    fetch('http://localhost:3000/albums?userId=1')
+    fetch(`http://localhost:3000/albums?userId=${id}`)
       .then(response => response.json())
       .then(data => setAlbums(data))
       .catch(error => console.error('Error fetching albums:', error));
@@ -18,7 +18,7 @@ const Albums = () => {
   const addAlbum = async (title) => {
     const newAlbum = {
       title,
-      userId: id
+      userId: parseInt(id, 10)
     };
     try {
       const response = await fetch('http://localhost:3000/albums', {
@@ -49,7 +49,7 @@ const Albums = () => {
   const updateAlbum = async (id, newTitle) => {
     try {
       const response = await fetch(`http://localhost:3000/albums/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },

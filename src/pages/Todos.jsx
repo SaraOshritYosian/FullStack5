@@ -18,7 +18,7 @@ function Todos() {
   
     const addTodo = async (title) => {
         const newTodo = {
-            userId: id,
+            userId: parseInt(id, 10),
             title,
             completed: false
           };
@@ -51,7 +51,7 @@ function Todos() {
     const updateTodo = async (id, newTitle) => {
         try {
             const response = await fetch(`http://localhost:3000/todos/${id}`, {
-              method: 'PUT',
+              method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
               },
