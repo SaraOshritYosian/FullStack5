@@ -164,7 +164,7 @@ const Posts = () => {
                 {comments.map(comment => (
                   <li key={comment.id}>
                     {comment.body}
-                    {comment.userId === userId && (
+                    {comment.userId == userId && (
                         <div>
                     <button onClick={() => deleteComment(comment.id)}>Delete</button>
                     <button onClick={() => {
