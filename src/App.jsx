@@ -59,7 +59,7 @@ function App() {
               }
             />
             <Route
-              path="users/:id/posts"
+              path="users/:userId/posts"
               element={
                 <ProtectedRoute>
                   <Posts />

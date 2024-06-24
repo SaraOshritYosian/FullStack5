@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Posts = () => {
-    const { id } = useParams();
+    const { userId } = useParams();
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -10,17 +10,17 @@ const Posts = () => {
 
   useEffect(() => {
     // Fetch posts from the JSONPlaceholder API when the component mounts
-    fetch(`http://localhost:3000/posts?userId=${id}`)
+    fetch(`http://localhost:3000/posts?userId=${userId}`)
       .then(response => response.json())
       .then(data => setPosts(data))
       .catch(error => console.error('Error fetching posts:', error));
-  }, [id]);
+  }, [userId]);
 
   const addPost = async (title, body) => {
     const newPost = {
       title,
       body,
-      userId: id
+      userId
     };
     try {
       const response = await fetch('http://localhost:3000/posts', {
@@ -75,13 +75,13 @@ const Posts = () => {
   };
 
   const addComment = async (postId, body) => {
-    const user= json.parse(localStorage.getItem('currentUser'));
+    const user= JSON.parse(localStorage.getItem('currentUser'));
     const newComment = {
       postId,
       name: user.name,
       email: user.email,
       body,
-      userId: id, 
+      userId, 
     };
     try {
       const response = await fetch('http://localhost:3000/comments', {
@@ -165,7 +165,7 @@ const Posts = () => {
                 {comments.map(comment => (
                   <li key={comment.id}>
                     {comment.body}
-                    {comment.userId === id && (
+                    {comment.userId === userId && (
                         <div>
                     <button onClick={() => deleteComment(comment.id)}>Delete</button>
                     <button onClick={() => {
