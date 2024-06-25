@@ -1,13 +1,15 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import '../Info.css'; // נוסיף את שורת הייבוא הזו כדי להשתמש בקובץ ה-CSS
 
-function Info(){
+function Info() {
     const { id } = useParams();
     const user = JSON.parse(localStorage.getItem("currentUser"));
+    
     return (
       <div>
         <h1>{user.name}</h1>
-        <table>
+        <table className="info-table">
           <tbody>
             <tr>
               <td>Username</td>

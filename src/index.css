@@ -105,13 +105,21 @@ button {
 }
 
 /* Added styles for Info, Todos, Posts, Albums pages */
-.page-buttons {
+.nav-buttons {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  gap: 1em;
   margin: 1em 0;
 }
 
-.page-buttons button {
-  margin: 0.5em;
+.nav-buttons button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  transition: background-color 0.25s;
+}
+.nav-buttons button:hover {
+  background-color: #005f99;
 }

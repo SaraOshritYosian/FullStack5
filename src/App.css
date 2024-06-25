@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #e0f7fa;
+  color: #005f99;
 }
 
 .logo {
@@ -45,3 +47,58 @@
 .read-the-docs {
   color: #888;
 }
+
+.page-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1em 0;
+}
+
+.page-buttons button {
+  margin: 0.5em;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  transition: background-color 0.25s;
+}
+.page-buttons button:hover {
+  background-color: #005f99;
+}
+
+/* App.css */
+
+/* Adjusting Todos list */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Adjust spacing between todos */
+}
+
+li > div:first-child {
+  flex-grow: 1;
+  text-align: left; /* Align todo text to the left */
+}
+
+li > div:last-child {
+  display: flex;
+  gap: 5px; /* Adjust spacing between buttons */
+  align-items: center; /* Align buttons vertically */
+}
+
+li button {
+  font-size: 12px; /* Decrease button font size */
+}
+
+li input[type="checkbox"] {
+  margin-right: 5px; /* Adjust spacing between checkbox and text */
+}
+

@@ -1,0 +1,18 @@
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .info-table td {
+    padding: 8px;
+  }
+  
+  .info-table td:first-child {
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .info-table td:last-child {
+    text-align: right;
+  }
+  

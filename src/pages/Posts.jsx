@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import '../Posts.css'; // ייבוא קובץ ה-CSS
 
 const Posts = () => {
-    const { userId } = useParams();
+  const { userId } = useParams();
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch posts from the JSONPlaceholder API when the component mounts
     fetch(`http://localhost:3000/posts?userId=${userId}`)
       .then(response => response.json())
       .then(data => setPosts(data))
@@ -142,49 +142,56 @@ const Posts = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <ul>
+      <div className="posts-container">
         {filteredPosts.map(post => (
-          <li key={post.id}>
-            {post.id}. <span style={{ fontWeight: selectedPost&& selectedPost.id===post.id ? 'bold' : 'normal' }}>{post.title}</span>
-            <button onClick={() => {
-              setSelectedPost(post);
-              fetchComments(post.id);
-            }}>View</button>
-            <button onClick={() => deletePost(post.id)}>Delete</button>
-            <button onClick={() => {
-              const newTitle = prompt('Enter new title', post.title);
-              const newBody = prompt('Enter new content', post.body);
-              if (newTitle && newBody) updatePost(post.id, newTitle, newBody);
-            }}>Edit</button>
-            {selectedPost&& selectedPost.id===post.id && (
-            <div>
-              <p>{selectedPost.body}</p>
-              <h4>Comments</h4>
-              <ul>
-                {comments.map(comment => (
-                  <li key={comment.id}>
-                    {comment.body}
-                    {comment.userId == userId && (
-                        <div>
-                    <button onClick={() => deleteComment(comment.id)}>Delete</button>
-                    <button onClick={() => {
-                      const newBody = prompt('Enter new comment', comment.body);
-                      if (newBody) updateComment(comment.id, newBody);
-                    }}>Edit</button>
-                    </div>)}
-                  </li>
-                ))}
-              </ul>
-              <button onClick={() => {
-                const body = prompt('Enter comment');
-                if (body) addComment(selectedPost.id, body);
-              }}>Add Comment</button>
-              <button onClick={() => setSelectedPost(null)}>Close</button>
+          <div key={post.id} className="post">
+            <div className="post-details">
+              <span style={{ fontWeight: selectedPost && selectedPost.id === post.id ? 'bold' : 'normal' }}>
+                {post.title}
+              </span>
+              {selectedPost && selectedPost.id === post.id && (
+                <div className="comments-section">
+                  <p>{selectedPost.body}</p>
+                  <h4>Comments</h4>
+                  <ul>
+                    {comments.map(comment => (
+                      <li key={comment.id}>
+                        {comment.body}
+                        {comment.userId == userId && (
+                          <div>
+                            <button onClick={() => deleteComment(comment.id)}>Delete</button>
+                            <button onClick={() => {
+                              const newBody = prompt('Enter new comment', comment.body);
+                              if (newBody) updateComment(comment.id, newBody);
+                            }}>Edit</button>
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => {
+                    const body = prompt('Enter comment');
+                    if (body) addComment(selectedPost.id, body);
+                  }}>Add Comment</button>
+                  <button onClick={() => setSelectedPost(null)}>Close</button>
+                </div>
+              )}
             </div>
-          )}
-          </li>
+            <div className="post-actions">
+              <button onClick={() => {
+                setSelectedPost(post);
+                fetchComments(post.id);
+              }}>View</button>
+              <button onClick={() => deletePost(post.id)}>Delete</button>
+              <button onClick={() => {
+                const newTitle = prompt('Enter new title', post.title);
+                const newBody = prompt('Enter new content', post.body);
+                if (newTitle && newBody) updatePost(post.id, newTitle, newBody);
+              }}>Edit</button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
       <button onClick={() => {
         const title = prompt('Enter post title');
         const body = prompt('Enter post content');

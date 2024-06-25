@@ -14,7 +14,7 @@ function Layout(){
         <>
         <h3>Welcome {user.name}</h3>
         <button onClick={Logout}>Logout</button>
-        <nav className='navbar'>
+        <nav className="nav-buttons">
           <NavLink
             to={`users/${user.id}/info`}
             className={({ isActive }) => (isActive ? 'link active' : 'link')}
