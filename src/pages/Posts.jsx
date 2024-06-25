@@ -75,13 +75,13 @@ const Posts = () => {
   };
 
   const addComment = async (postId, body) => {
-    const user= JSON.parse(localStorage.getItem('currentUser'));
+    const user = JSON.parse(localStorage.getItem('currentUser'));
     const newComment = {
       postId,
       name: user.name,
       email: user.email,
       body,
-      userId: parseInt(userId, 10), 
+      userId: parseInt(userId, 10),
     };
     try {
       const response = await fetch('http://localhost:3000/comments', {
@@ -151,7 +151,7 @@ const Posts = () => {
               </span>
               {selectedPost && selectedPost.id === post.id && (
                 <div className="comments-section">
-                  <p>{selectedPost.body}</p>
+                  <p>{post.body}</p> {/* הצגת תוכן הפוסט */}
                   <h4>Comments</h4>
                   <ul>
                     {comments.map(comment => (

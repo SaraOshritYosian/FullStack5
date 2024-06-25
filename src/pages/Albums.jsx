@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const Albums = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [albums, setAlbums] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch albums from the JSONPlaceholder API when the component mounts
     fetch(`http://localhost:3000/albums?userId=${id}`)
       .then(response => response.json())
       .then(data => setAlbums(data))
@@ -62,16 +61,19 @@ const Albums = () => {
     }
   };
 
-  const filteredAlbums = albums.filter(album => {
-    if (searchTerm) {
-      return album.id === parseInt(searchTerm) ||
-        album.title.toLowerCase().includes(searchTerm.toLowerCase());
-    }
-    return true;
-  });
-
   const showPhotos = (album) => {
     navigate(`/users/${id}/albums/${album.id}/photos`);
+  };
+
+  const albumItemStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '10px',
+  };
+
+  const buttonStyle = {
+    marginLeft: '10px',
   };
 
   return (
@@ -84,15 +86,19 @@ const Albums = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <ul>
-        {filteredAlbums.map(album => (
-          <li key={album.id}>
-            {album.id}. {album.title}
-            <button onClick={() => showPhotos(album)}>View Photos</button>
-            <button onClick={() => deleteAlbum(album.id)}>Delete</button>
-            <button onClick={() => {
-              const newTitle = prompt('Enter new title', album.title);
-              if (newTitle) updateAlbum(album.id, newTitle);
-            }}>Edit</button>
+        {albums.map(album => (
+          <li key={album.id} style={albumItemStyle}>
+            <div>
+              {album.title}
+            </div>
+            <div>
+              <button style={buttonStyle} onClick={() => showPhotos(album)}>View</button>
+              <button style={buttonStyle} onClick={() => deleteAlbum(album.id)}>Delete</button>
+              <button style={buttonStyle} onClick={() => {
+                const newTitle = prompt('Enter new title', album.title);
+                if (newTitle) updateAlbum(album.id, newTitle);
+              }}>Edit</button>
+            </div>
           </li>
         ))}
       </ul>

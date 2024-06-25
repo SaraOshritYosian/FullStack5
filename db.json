@@ -599,6 +599,12 @@
       "id": "100",
       "title": "at nam consequatur ea labore ea harum",
       "body": "cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut"
+    },
+    {
+      "id": "0662",
+      "title": "first post",
+      "body": "forst comment",
+      "userId": 987
     }
   ],
   "comments": [
@@ -41076,6 +41082,18 @@
       "userId": 1,
       "title": "make dinner",
       "completed": false
+    },
+    {
+      "id": "aa28",
+      "userId": 987,
+      "title": "do lundry",
+      "completed": false
+    },
+    {
+      "id": "5a17",
+      "userId": 987,
+      "title": "eat sushi",
+      "completed": true
     }
   ]
 }

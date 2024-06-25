@@ -13,17 +13,18 @@
   }
   
   .post-details {
-    flex: 1; /* רוחב המשימה */
+    flex: 1;
   }
   
   .post-actions {
     display: flex;
     gap: 10px;
-    margin-left: 20px; /* רווח בין המשימה לכפתורים */
+    margin-left: 20px;
   }
   
   .post-actions button {
-    margin-top: 5px; /* רווח בין הכפתורים */
+    padding: 5px 10px; /* גודל כפתור */
+    margin-right: 10px; /* רווח בין כפתורים */
   }
   
   .comments-section {
