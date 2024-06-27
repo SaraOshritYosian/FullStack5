@@ -81,7 +81,7 @@ function App() {
                   </ProtectedRoute>
                 }/>
           </Route>
-          <Route path="*" element={<Error/>} />
+          <Route path="*" element={<ProtectedRoute><Error/></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </div>
