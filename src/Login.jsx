@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useErrorMessage } from './costumizedHooks/UseError';
 import { useNavigate } from 'react-router-dom';
@@ -79,12 +78,14 @@ function Login() {
           />
         </div>
         <h4>{errorMessage}</h4>
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
-        <button type="button" onClick={handleRegister}>
-          Register
-        </button>
+        <div className="login-buttons">
+          <button type="submit" onClick={handleLogin}>
+            Login
+          </button>
+          <button type="button" onClick={handleRegister}>
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );

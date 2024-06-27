@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+
 const Photos = () => {
-  const { id, albumId  } = useParams();
+  const { id, albumId } = useParams();
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newPhotoTitle, setNewPhotoTitle] = useState('');
@@ -10,6 +11,7 @@ const Photos = () => {
   const [editPhotoId, setEditPhotoId] = useState(null);
   const [editPhotoTitle, setEditPhotoTitle] = useState('');
   const [limit, setLimit] = useState(5);
+
   useEffect(() => {
     fetchPhotos();
   }, [albumId]);
@@ -31,13 +33,13 @@ const Photos = () => {
 
   const addPhoto = async () => {
     if (!newPhotoUrl || !newPhotoTitle) return;
-    
-      const newPhoto = {
-        albumId: albumId,
-        title: newPhotoTitle,
-        url: newPhotoUrl,
-        thumbnailUrl: newPhotoUrl,
-      };
+
+    const newPhoto = {
+      albumId: albumId,
+      title: newPhotoTitle,
+      url: newPhotoUrl,
+      thumbnailUrl: newPhotoUrl,
+    };
     try {
       const response = await fetch('http://localhost:3000/photos', {
         method: 'POST',
@@ -84,13 +86,12 @@ const Photos = () => {
     }
   };
 
-
   return (
     <div>
       <h3>Photos</h3>
-      <ul>
+      <div className="photos-container">
         {photos.map(photo => (
-          <li key={photo.id}>
+          <div key={photo.id} className="photo-item">
             <img src={photo.thumbnailUrl} alt={photo.title} />
             {editPhotoId === photo.id ? (
               <div>
@@ -108,16 +109,18 @@ const Photos = () => {
             ) : (
               <div>
                 <p>{photo.title}</p>
-                <button onClick={() => {
-                  setEditPhotoId(photo.id);
-                  setEditPhotoTitle(photo.title);
-                }}>Edit</button>
-                <button onClick={() => deletePhoto(photo.id)}>Delete</button>
+                <div className="photo-actions">
+                  <button class="edit-delete" onClick={() => {
+                    setEditPhotoId(photo.id);
+                    setEditPhotoTitle(photo.title);
+                  }}>Edit</button>
+                  <button class="edit-delete" onClick={() => deletePhoto(photo.id)}>Delete</button>
+                </div>
               </div>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       <button disabled={loading} onClick={fetchPhotos}>
         {loading ? 'Loading...' : 'More Photos'}
       </button>

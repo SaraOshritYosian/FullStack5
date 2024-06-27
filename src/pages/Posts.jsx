@@ -169,11 +169,13 @@ const Posts = () => {
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => {
-                    const body = prompt('Enter comment');
-                    if (body) addComment(selectedPost.id, body);
-                  }}>Add Comment</button>
-                  <button onClick={() => setSelectedPost(null)}>Close</button>
+                  <div className="comments-actions">
+                    <button onClick={() => {
+                      const body = prompt('Enter comment');
+                      if (body) addComment(selectedPost.id, body);
+                    }}>Add Comment</button>
+                    <button onClick={() => setSelectedPost(null)}>Close</button>
+                  </div>
                 </div>
               )}
             </div>
