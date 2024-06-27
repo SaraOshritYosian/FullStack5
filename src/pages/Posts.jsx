@@ -41,7 +41,7 @@ const Posts = () => {
     try {
 
       // Fetch comments related to the post
-      const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`);
+      const commentsResponse = await fetch(`http://localhost:3000/comments?postId=${id}`);
       const comments = await commentsResponse.json();
 
       // Delete each comment

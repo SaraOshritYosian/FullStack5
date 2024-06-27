@@ -37,12 +37,12 @@ const Albums = () => {
   const deleteAlbum = async (id) => {
     try {
       // Fetch photos related to the album
-      const photosResponse = await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${id}`);
-      const photos = await commentsResponse.json();
+      const photosResponse = await fetch(`http:///localhost:3000/photos?albumId=${id}`);
+      const photos = await photosResponse.json();
 
       // Delete each comment
-        photos.map(photo => {
-           fetch(`https://jsonplaceholder.typicode.com/photos/${photo.id}`, {
+        photos.map(async photo => {
+            await fetch(`http://localhost:3000/photos/${photo.id}`, {
             method: 'DELETE',
           })}
         );
