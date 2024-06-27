@@ -39,9 +39,20 @@ const Posts = () => {
 
   const deletePost = async (id) => {
     try {
-      await fetch(`http://localhost:3000/posts/${id}`, {
-        method: 'DELETE',
-      });
+
+      // Fetch comments related to the post
+      const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`);
+      const comments = await commentsResponse.json();
+
+      // Delete each comment
+        comments.map(comment =>
+          deleteComment(comment.id)
+        );
+
+        // Delete the post itself
+        await fetch(`http://localhost:3000/posts/${id}`, {
+          method: 'DELETE',
+        });
       setPosts(posts.filter(post => post.id !== id));
     } catch (error) {
       console.error('Error deleting post:', error);

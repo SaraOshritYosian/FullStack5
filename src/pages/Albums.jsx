@@ -36,9 +36,21 @@ const Albums = () => {
 
   const deleteAlbum = async (id) => {
     try {
-      await fetch(`http://localhost:3000/albums/${id}`, {
-        method: 'DELETE',
-      });
+      // Fetch photos related to the album
+      const photosResponse = await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${id}`);
+      const photos = await commentsResponse.json();
+
+      // Delete each comment
+        photos.map(photo => {
+           fetch(`https://jsonplaceholder.typicode.com/photos/${photo.id}`, {
+            method: 'DELETE',
+          })}
+        );
+      
+        // Delete the album
+        await fetch(`http://localhost:3000/albums/${id}`, {
+          method: 'DELETE',
+        });
       setAlbums(albums.filter(album => album.id !== id));
     } catch (error) {
       console.error('Error deleting album:', error);
